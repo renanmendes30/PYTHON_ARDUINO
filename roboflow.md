@@ -39,4 +39,57 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 ## Solicitando API Roboflow e mostrando json
+```
+import cv2, requests
 
+img = cv2.imread("dog.960.jpg")
+_, img_encoded = cv2.imencode(".jpg", img)
+
+res = requests.post(
+    "https://serverless.roboflow.com/fiap-lgfiw/3",
+    params={"api_key": "v9v7VyiohQ8xxki5hUZs"},
+    files={"file": img_encoded.tobytes()}
+)
+
+print(res.json())
+```
+
+## Solicitando API Roboflow e mostrando json e ligando um led
+```
+import cv2, requests, serial, time
+
+# ===== CONFIG =====
+API_KEY = "v9v7VyiohQ8xxki5hUZs"
+MODEL = "fiap-lgfiw/3"
+PORTA = "COM12"
+
+# conecta Arduino
+arduino = serial.Serial(PORTA, 9600)
+time.sleep(2)
+
+# lê imagem
+img = cv2.imread("dog.960.jpg")
+_, img_encoded = cv2.imencode(".jpg", img)
+
+# inferência
+res = requests.post(
+    f"https://serverless.roboflow.com/{MODEL}",
+    params={"api_key": API_KEY},
+    files={"file": img_encoded.tobytes()}
+).json()
+
+# pega previsões ordenadas
+preds = sorted(res.get("predictions", []), key=lambda p: p["x"])
+
+# monta valor
+valor = "".join(str(p["class"]) for p in preds)
+print("Valor detectado:", valor)
+
+# ===== REGRA =====
+if str(valor) == "dogs":
+    arduino.write(b'l')
+    print("LED LIGADO")
+else:
+    arduino.write(b'd')
+    print("LED DESLIGADO")
+```
