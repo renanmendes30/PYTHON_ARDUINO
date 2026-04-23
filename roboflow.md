@@ -12,7 +12,7 @@ _, img_encoded = cv2.imencode(".jpg", img)
 
 res = requests.post(
     "https://serverless.roboflow.com/fiap-lgfiw/3",
-    params={"api_key": "v9v7VyiohQ8xxki5hUZs"},
+    params={"api_key": "SUA_API_AQUI"},
     files={"file": img_encoded.tobytes()}
 )
 
@@ -24,7 +24,7 @@ print(res.json())
 ```
 import cv2, requests
 
-API_KEY = "v9v7VyiohQ8xxki5hUZs"
+API_KEY = "SUA_API_AQUI"
 MODEL = "seven-segments-display-digits-sn4km/1"
 
 img = cv2.imread("multimetro-de-alta-precisao-dt-9919-cem-true-rms-53a7b060d00d87de6517464774056546-640-0.webp")
@@ -65,7 +65,7 @@ cv2.destroyAllWindows()
 import cv2, requests, serial, time
 
 # ===== CONFIG =====
-API_KEY = "v9v7VyiohQ8xxki5hUZs"
+API_KEY = "SUA_API_AQUI"
 MODEL = "fiap-lgfiw/3"
 PORTA = "COM12"
 
@@ -108,7 +108,7 @@ import serial
 import time
 
 # ===== CONFIG =====
-API_KEY = "v9v7VyiohQ8xxki5hUZs"
+API_KEY = "SUA_API_AQUI"
 MODEL = "fiap-lgfiw/3"
 PORTA = "COM12"
 INTERVALO = 60.0  # segundos entre inferências
