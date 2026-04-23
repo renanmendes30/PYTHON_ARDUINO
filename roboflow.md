@@ -1,5 +1,22 @@
+## Instalação 
+
 ```
 pip install opencv-python requests pyserial
+```
+## Solicitando API Roboflow e mostrando json
+```
+import cv2, requests
+
+img = cv2.imread("dog.960.jpg")
+_, img_encoded = cv2.imencode(".jpg", img)
+
+res = requests.post(
+    "https://serverless.roboflow.com/fiap-lgfiw/3",
+    params={"api_key": "v9v7VyiohQ8xxki5hUZs"},
+    files={"file": img_encoded.tobytes()}
+)
+
+print(res.json())
 ```
 
 ## Solicitando API Roboflow e mostrando a imagem
@@ -41,21 +58,6 @@ cv2.imshow("Resultado", img)
 cv2.imwrite("resultado.jpg", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-```
-## Solicitando API Roboflow e mostrando json
-```
-import cv2, requests
-
-img = cv2.imread("dog.960.jpg")
-_, img_encoded = cv2.imencode(".jpg", img)
-
-res = requests.post(
-    "https://serverless.roboflow.com/fiap-lgfiw/3",
-    params={"api_key": "v9v7VyiohQ8xxki5hUZs"},
-    files={"file": img_encoded.tobytes()}
-)
-
-print(res.json())
 ```
 
 ## Solicitando API Roboflow e mostrando json e ligando um led
