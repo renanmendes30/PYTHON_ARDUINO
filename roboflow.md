@@ -1,3 +1,7 @@
+```
+pip install opencv-python requests pyserial
+```
+
 ## Solicitando API Roboflow e mostrando a imagem
 
 ```
